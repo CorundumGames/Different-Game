@@ -10,79 +10,103 @@
 
 #include "Declarations.h"
 
-/* Holds anything.  Grid<T> is designed to be showed on screen.  It's designed to be flexible,
- * safe, and easy.
+/*
+ * Holds anything.  Grid<T> is designed to be showed on screen.  It's designed
+ * to be flexible, safe, and easy.  This class is contained entirely in a header
+ * because splitting templated classes into multiple files is a bitch.
  *
  */
 template<class T>
 class Grid
 {
 
-public:
-	Grid<T>();
+    public:
+        Grid<T> ();
 
-	//This overloaded constructor is preferred, but the default is fine, too.
-	Grid<T>(const VectorInt& newgridsize,
-			const VectorFloat& newcellsize,
-			const VectorFloat& newlocation);
+        //This overloaded constructor is preferred, but the default is fine.
+        Grid<T> (const VectorInt& newgridsize, const VectorFloat& newcellsize,
+                const VectorFloat& newlocation);
 
-	/* Begin objects */
-	T    get(const VectorInt& newlocation) const;
-	void set(const T& t,
-			 const VectorInt& newlocation);
-	/* End objects */
+        /*** Begin object operations ***/
 
-	/* Begin dimensions */
-	//This will delete the grid's contents!  Does not affect cellsize, gridsize, or location.
-	void setDimensions(const VectorInt& newdimensions);
-	VectorInt getDimensions() const;
-	/* End dimensions */
+        T get(const VectorInt& newlocation) const;
+        void set(const T& t, const VectorInt& newlocation);
 
-	/* Begin cellsize */
-	void setCellSize(const VectorFloat& newcellsize);  //Recalculates gridsize, too.
-	VectorFloat getCellSize() const;
-	/* End cellsize */
+        /*** End object operations ***/
 
-	/* Begin gridsize */
-	void setGridSize()
-	/* End gridsize */
+        /*** Begin dimension operations ***/
 
-	/* Begin location */
-	void setLocation(const VectorFloat& newlocation);  //Does not affect grid's contents.
-	VectorFloat getLocation() const;
-	/* End location */
+        //This will delete the grid's contents!
+        //Does not affect cellsize, gridsize, or location.
+        void setDimensions(const VectorInt& newdimensions);
+        VectorInt getDimensions() const;
 
-	/* Begin validity checkers */
-	bool isCellValid(const VectorInt& cell);
-	bool isInGrid(const VectorFloat& newposition);
-	bool isInCell(const VectorFloat& newposition,
-				  const VectorInt& cell);
-	/* End validity checkers */
+        /*** End dimension operations ***/
 
-	//TODO: Implement const unit vectors to multiply speed or velocity by.
-private:
-protected:
-	//Size of the grid in blocks.
-	VectorInt dimensions;
+        /*** Begin cell operations ***/
 
-	//Size of each cell.  Each cell must be the same size!
-	VectorFloat cellsize;
+        //Also recalculates gridsize
+        void setCellSize(const VectorFloat& newcellsize);
+        VectorFloat getCellSize() const;
 
-	//Size of the whole grid.  Get/setters must recalculate this and cellsize!
-	VectorFloat gridsize;
+        /*** End cell operations ***/
 
-	//Where the upper left corner of the grid is.
-	VectorFloat location;
+        /*** Begin grid operations ***/
 
+        //Sees if a given coordinate is inside the grid's area.
+        bool isInGrid(const VectorFloat& newposition) const;
 
+        //Also recalculates cellsize
+        void setGridSize(const VectorFloat& newgridsize);
 
-	/*
-	 * A double array.  Need to initialize with a nested for loop.
-	 * Must remember to delete it in the destructor and in setGridSize()!
-	 */
-	T** objects;
+        VectorFloat getGridSize() const;
+
+        /*** End grid operations ***/
+
+        /*** Begin location operations ***/
+
+        //Does not affect grid's contents.
+        void setLocation(const VectorFloat& newlocation);
+        VectorFloat getLocation() const;
+
+        /*** End location operations ***/
+
+        /*** Begin validity checkers ***/
+        bool isCellValid(const VectorInt& cell) const;
+
+        bool
+                isInCell(const VectorFloat& newposition, const VectorInt& cell) const;
+        /*** End validity checkers ***/
+
+        //TODO: Implement static const unit vectors to multiply speed or velocity by.
+    protected:
+        //Size of the grid in blocks.
+        VectorInt dimensions;
+
+        //Location of upper left corner.
+        VectorFloat location;
+
+        //Size of each cell.  Each cell must be the same size!
+        VectorFloat cellsize;
+
+        //Size of the whole grid.  Get/setters must recalculate this and cellsize!
+        VectorFloat gridsize;
+
+        //A rectangle representing the grid's area.
+        RectFloat gridarea;
+
+        //Called internally by the constructor and setGridSize().
+        void initializeGrid(const VectorInt& newsize);
+
+        //Clears the grid and anything on it.
+        void deleteGrid();
+
+        /*
+         * A 2D array.  Need to initialize with a nested for loop.
+         * Must remember to delete it in the destructor and in setGridSize()!
+         */
+        T** objects;
 
 };
-
 
 #endif /* GRID_H_ */

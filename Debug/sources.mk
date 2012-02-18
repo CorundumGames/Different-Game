@@ -25,5 +25,4 @@ C_UPPER_DEPS :=
 SUBDIRS := \
 Different-Game/src \
 Different-Game \
-. \
 

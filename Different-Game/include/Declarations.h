@@ -12,20 +12,21 @@
 
 
 //Class forward declarations
+enum Direction {SOUTH = 0, EAST, NORTH, WEST};
 template<class T> class Grid;
-class Entity;
+template<class T> class GravityGrid;
+class Visible;
+class Movable;
+class Clickable;
+class Block;
 
-//Typedefs for portability
-typedef sf::Image   ImageFile;
+//Typedefs to ease portability.
+typedef sf::Image ImageFile;
 typedef sf::Matrix3 Matrix2D;
-typedef sf::Sprite Image;
+typedef sf::Sprite Sprite;
+typedef sf::Rect<int> RectInt;
+typedef sf::Rect<float> RectFloat;
 typedef sf::Vector2<int> VectorInt;
 typedef sf::Vector2<float> VectorFloat;
-
-
-
-
-
-
 
 #endif /* DECLARATIONS_H_ */

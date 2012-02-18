@@ -4,13 +4,19 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../Different-Game/src/Entity.cpp 
+../Different-Game/src/Clickable.cpp \
+../Different-Game/src/Movable.cpp \
+../Different-Game/src/Visible.cpp 
 
 OBJS += \
-./Different-Game/src/Entity.o 
+./Different-Game/src/Clickable.o \
+./Different-Game/src/Movable.o \
+./Different-Game/src/Visible.o 
 
 CPP_DEPS += \
-./Different-Game/src/Entity.d 
+./Different-Game/src/Clickable.d \
+./Different-Game/src/Movable.d \
+./Different-Game/src/Visible.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
