@@ -16,11 +16,12 @@ template<class T> class Grid;
 class Entity;
 
 //Typedefs for portability
-typedef sf::Image  ImageFile;
+typedef sf::Image   ImageFile;
+typedef sf::Matrix3 Matrix2D;
 typedef sf::Sprite Image;
 typedef sf::Vector2<int> VectorInt;
 typedef sf::Vector2<float> VectorFloat;
-typedef sf::Matrix3 Matrix2D;
+
 
 
 

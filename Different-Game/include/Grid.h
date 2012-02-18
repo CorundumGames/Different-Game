@@ -10,7 +10,10 @@
 
 #include "Declarations.h"
 
-/* Holds blocks.  Design this to be useful in many projects! */
+/* Holds anything.  Grid<T> is designed to be showed on screen.  It's designed to be flexible,
+ * safe, and easy.
+ *
+ */
 template<class T>
 class Grid
 {
@@ -19,7 +22,7 @@ public:
 	Grid<T>();
 
 	//This overloaded constructor is preferred, but the default is fine, too.
-	Grid<T>(const   VectorInt& newgridsize,
+	Grid<T>(const VectorInt& newgridsize,
 			const VectorFloat& newcellsize,
 			const VectorFloat& newlocation);
 
@@ -30,16 +33,23 @@ public:
 	/* End objects */
 
 	/* Begin dimensions */
-	void setSize(const VectorInt& newdimensions);
+	//This will delete the grid's contents!  Does not affect cellsize, gridsize, or location.
+	void setDimensions(const VectorInt& newdimensions);
+	VectorInt getDimensions() const;
 	/* End dimensions */
 
 	/* Begin cellsize */
+	void setCellSize(const VectorFloat& newcellsize);  //Recalculates gridsize, too.
+	VectorFloat getCellSize() const;
 	/* End cellsize */
 
 	/* Begin gridsize */
+	void setGridSize()
 	/* End gridsize */
 
 	/* Begin location */
+	void setLocation(const VectorFloat& newlocation);  //Does not affect grid's contents.
+	VectorFloat getLocation() const;
 	/* End location */
 
 	/* Begin validity checkers */
