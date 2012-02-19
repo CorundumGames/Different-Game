@@ -25,7 +25,7 @@ class Grid
 
         //This overloaded constructor is preferred, but the default is fine.
         Grid<T> (const VectorInt& newgridsize, const VectorFloat& newcellsize,
-                const VectorFloat& newlocation);
+                 const VectorFloat& newlocation);
 
         /*** Begin object operations ***/
 
@@ -34,14 +34,18 @@ class Grid
 
         /*** End object operations ***/
 
+
         /*** Begin dimension operations ***/
 
         //This will delete the grid's contents!
         //Does not affect cellsize, gridsize, or location.
         void setDimensions(const VectorInt& newdimensions);
+        void setDimensions(const RectInt& newdimensions);
         VectorInt getDimensions() const;
+        RectInt getDimensionRect() const;
 
         /*** End dimension operations ***/
+
 
         /*** Begin cell operations ***/
 
@@ -50,6 +54,7 @@ class Grid
         VectorFloat getCellSize() const;
 
         /*** End cell operations ***/
+
 
         /*** Begin grid operations ***/
 
@@ -63,19 +68,25 @@ class Grid
 
         /*** End grid operations ***/
 
+
         /*** Begin location operations ***/
 
         //Does not affect grid's contents.
         void setLocation(const VectorFloat& newlocation);
+
+
         VectorFloat getLocation() const;
 
         /*** End location operations ***/
 
+
         /*** Begin validity checkers ***/
+
         bool isCellValid(const VectorInt& cell) const;
 
-        bool
-                isInCell(const VectorFloat& newposition, const VectorInt& cell) const;
+        //Sees if a position is in a particular cell.
+        bool isInCell(const VectorFloat& newposition, const VectorInt& cell) const;
+
         /*** End validity checkers ***/
 
         //TODO: Implement static const unit vectors to multiply speed or velocity by.
@@ -95,11 +106,13 @@ class Grid
         //A rectangle representing the grid's area.
         RectFloat gridarea;
 
+
         //Called internally by the constructor and setGridSize().
         void initializeGrid(const VectorInt& newsize);
 
         //Clears the grid and anything on it.
         void deleteGrid();
+
 
         /*
          * A 2D array.  Need to initialize with a nested for loop.
