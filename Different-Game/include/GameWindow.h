@@ -8,7 +8,7 @@
 class GameWindow : public Screen
 {
     public:
-        GameWindow() : Screen(VideoMode(640, 480, 32), "France") {};
+        GameWindow() : Screen(VideoMode(640, 480, 32), "Different Game") {};
         void setScore(uint64 newscore);
         void increaseScore(uint64 scoretoadd);
         uint64 getScore() const;

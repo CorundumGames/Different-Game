@@ -19,9 +19,7 @@ class Visible
         VectorFloat getPosition() const;
 
     protected:
-        ImageFile image;
-        //TODO: Decide how to go about inheriting position
-        //Static can be overwritten, right?
+        //ImageFiles must be owned by all derived objects.
 
         //The image that is actually visible to the user.  Its built-in
         //position vector is meant to be used as the object's position.

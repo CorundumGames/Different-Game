@@ -13,17 +13,19 @@
 
 //Class forward declarations
 enum Direction {SOUTH = 0, EAST, NORTH, WEST};
-template<class T> class Grid;
-template<class T> class GravityGrid;
+
 class Visible;
 class Movable;
 class Clickable;
 class Block;
 class GameWindow;
 class ScoreKeeper;
+template<class T> class Grid;
+template<class T> class GravityGrid;
 
 //Typedefs to ease portability.
-template<typename T, unsigned long U> class GridMatrix;
+
+typedef boost::multi_array<Block, 2> GridMatrix;
 typedef sf::Color Color;
 typedef sf::Event Event;
 typedef sf::Input InputHandler;

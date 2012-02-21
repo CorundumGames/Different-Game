@@ -8,14 +8,27 @@
 #include "../include/Declarations.h"
 #include "../include/Block.h"
 
+ImageFile Block::image;
 
-Block::Block(Color newcolor, VectorInt newgridposition)
+Block::Block(const Color& newcolor, const VectorInt& newgridposition)
 {
     color = newcolor;
     gridposition = newgridposition;
+    image.LoadFromFile("../gfx/block.png");
+    sprite.SetImage(image);
 }
 
 Block::~Block()
+{
+
+}
+
+void Block::handleInput(const InputHandler& input)
+{
+
+}
+
+void Block::move()
 {
 
 }

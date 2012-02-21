@@ -17,13 +17,27 @@ class GravityGrid : public Grid<T>
         GravityGrid<T> ();
 
         //This overloaded constructor is preferred, but the default is fine.
-        GravityGrid<T> (const VectorInt& newgridsize, const VectorFloat& newcellsize,
+        GravityGrid<T> (const VectorInt& newgridsize,
+                        const VectorFloat& newcellsize,
                         const VectorFloat& newlocation);
-        //TODO: Inherit constructor from Grid<T>
+
     private:
         Direction down;
+        VectorInt gridsize;
+        VectorFloat cellsize;
+        VectorFloat location;
 
         //TODO: Write function to update matrix's elements by seeing where each block is on screen
 
 };
+
+template<class T>
+GravityGrid<T>::GravityGrid(const VectorInt& newgridsize,
+                            const VectorFloat& newcellsize,
+                            const VectorFloat& newlocation)
+{
+      gridsize = newgridsize;
+      cellsize = newcellsize;
+      location = newlocation;
+}
 #endif //GRAVITYGRID_H_

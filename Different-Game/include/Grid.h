@@ -22,7 +22,7 @@ class Grid
 {
 
     public:
-        Grid<T> ();
+        Grid<T> () {};
 
         //This overloaded constructor is preferred, but the default is fine.
         Grid<T> (const VectorInt& newdimensions, const VectorFloat& newcellsize,
@@ -41,10 +41,7 @@ class Grid
         //These will delete the grid's contents!
         //Does not affect cellsize, gridsize, or location.
         void setDimensions(const VectorInt& newdimensions);
-        void setDimensions(const RectInt& newdimensions);
-
-        VectorInt getDimensions() const;
-        RectInt getDimensionRect() const;
+        VectorInt getDimensions() const { return dimensions; }
 
         /*** End dimension operations ***/
 
@@ -53,7 +50,7 @@ class Grid
 
         //Also recalculates gridsize
         void setCellSize(const VectorFloat& newcellsize);
-        VectorFloat getCellSize() const;
+        VectorFloat getCellSize() const { return cellsize; }
         RectFloat getCellRect() const;
 
         /*** End cell operations ***/
@@ -81,7 +78,7 @@ class Grid
         //Does not affect grid's contents.
         void setLocation(const VectorFloat& newlocation);
 
-
+        //Returns the upper left corner of the grid.
         VectorFloat getLocation() const;
 
         /*** End location operations ***/
@@ -89,7 +86,7 @@ class Grid
 
         /*** Begin validity checkers ***/
 
-        bool isCellValid(const VectorInt& cell) const;
+        //bool isCellValid(const VectorInt& cell) const;
 
         //Sees if a position is in a particular cell.
         bool isInCell(const VectorFloat& newposition, const VectorInt& cell) const;
@@ -103,7 +100,7 @@ class Grid
         void updateGrid();
 
         //Clears the grid and anything on it.
-        void deleteGrid();
+        void clearGrid();
 
         //Size of the grid in blocks.
         VectorInt dimensions;
@@ -118,7 +115,7 @@ class Grid
         VectorFloat gridsize;
 
         //Holds all the blocks.
-        GridMatrix<T, 2> objects;
+        GridMatrix objects;
 
 };
 
@@ -129,16 +126,31 @@ Grid<T>::Grid(const VectorInt& newdimensions, const VectorFloat& newcellsize,
     dimensions = VectorInt(newdimensions.x, newdimensions.y);
     cellsize = VectorFloat(newcellsize.x, newcellsize.y);
     location = VectorFloat(newlocation.x, newlocation.y);
-    initializeGrid(dimensions);
+    resetGrid(dimensions);
 }
 
 template<class T>
 T Grid<T>::get(const VectorInt& newlocation) const
 {
-    return (isCellValid(newlocation)) ?
-            objects[newlocation.x][newlocation.y] : NULL;
+     return objects[newlocation.x][newlocation.y];
 }
 
+template<class T>
+void Grid<T>::resetGrid(const VectorInt& newdimensions)
+{
+     objects.resize(boost::extents[newdimensions.x][newdimensions.y]);
+     for (int i = 0; i < objects.shape()[0]; ++i)
+          for (int j = 0; j < objects.shape()[1]; ++j)
+               objects[i][j] = Block(Color::White, VectorInt(i, j));
+
+}
+
+/*template<class T>
+bool Grid<T>::isCellValid(const VectorInt& cell) const
+{
+     return (cell.x >= 0) && (cell.y >= 0) &&
+            (cell.x < objects.shape()[0]) && (cell.y < objects.shape()[1]);
+}  Deprecated?  */
 
 
 #endif /* GRID_H_ */

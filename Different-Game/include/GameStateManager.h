@@ -11,7 +11,4 @@ class GameStateManager
     private:
 };
 
-//TODO: Implement a game state manager that has game states
-//TODO: Implement game states that have objects (use polymorphism)
-
 #endif // GAMESTATEMANAGER_H

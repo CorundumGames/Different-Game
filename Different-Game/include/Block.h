@@ -9,8 +9,11 @@
 class Block : public Clickable, public Movable, public Visible
 {
     public:
-        Block();
-        Block(Color newcolor, VectorInt newgridposition);
+        Block() {};
+        Block(const Color& newcolor, const VectorInt& newgridposition);
+
+        void initialize(const Color& newcolor,
+                        const VectorInt& newgridposition);
 
         virtual ~Block();
 
@@ -28,10 +31,13 @@ class Block : public Clickable, public Movable, public Visible
         bool anyBlocksAdjacent() const;
         void select();
         void deselect();
+        void move();
+        void handleInput(const InputHandler& input);
 
     private:
         bool moving;
         bool selected;
+        static ImageFile image;
         Color color;
         VectorInt gridposition;
 };
