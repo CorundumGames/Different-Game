@@ -6,47 +6,34 @@
  */
 
 #include "../include/Declarations.h"
+#include "../include/Movable.h"
 
 //For acceleration in the class below.
 const float ACCEL = 0.5;
 
-/*
- * Abstract base class to give objects movement functionality.
- */
-class Movable
-{
-    public:
-        Movable();
-        virtual ~Movable();
-        void move() = 0;
-
-    protected:
-        //For movement and rotation.
-        Matrix2D matrix;
-
-        //matrix is translated by this during movement.
-        VectorFloat velocity;
-
-        /*
-         * Remember, enum Direction order is SOUTH, EAST, NORTH, WEST.
-         * Acceleration is not meant to change.  Meant to be accessed by enum.
-         */
-        static const VectorFloat acceleration[4] = {
-                VectorFloat(0, ACCEL), VectorFloat(ACCEL, 0),
-                VectorFloat(0, -ACCEL), VectorFloat(-ACCEL, 0)
-        };
-
-
-
+const VectorFloat Movable::acceleration[4] = {
+    VectorFloat(0, ACCEL), VectorFloat(ACCEL, 0),
+    VectorFloat(0, -ACCEL), VectorFloat(-ACCEL, 0)
 };
+
 
 Movable::Movable()
 {
-    // TODO Auto-generated constructor stub
-
+    velocity = VectorFloat(0, 0);
 }
 
-Movable::~Movable()
+VectorFloat Movable::getVelocity() const
 {
-    // TODO Auto-generated destructor stub
+    return velocity;
+}
+
+void Movable::setVelocity(const VectorFloat& newvelocity)
+{
+    velocity.x = newvelocity.x;
+    velocity.y = newvelocity.y;
+}
+
+VectorFloat Movable::getAcceleration(Direction dir) const
+{
+    return acceleration[dir];
 }

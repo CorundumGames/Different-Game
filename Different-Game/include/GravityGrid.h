@@ -11,7 +11,7 @@
 #include "Grid.h"
 
 template<class T>
-class GravityGrid<T> : public Grid<T>
+class GravityGrid : public Grid<T>
 {
     public:
         GravityGrid<T> ();
@@ -19,8 +19,11 @@ class GravityGrid<T> : public Grid<T>
         //This overloaded constructor is preferred, but the default is fine.
         GravityGrid<T> (const VectorInt& newgridsize, const VectorFloat& newcellsize,
                         const VectorFloat& newlocation);
+        //TODO: Inherit constructor from Grid<T>
     private:
-        direction down;
+        Direction down;
+
+        //TODO: Write function to update matrix's elements by seeing where each block is on screen
 
 };
 #endif //GRAVITYGRID_H_

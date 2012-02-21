@@ -5,15 +5,17 @@
  *      Author: jesse
  */
 
+#include "../include/Declarations.h"
 #include "../include/Block.h"
 
-Block::Block()
-{
-    // TODO Auto-generated constructor stub
 
+Block::Block(Color newcolor, VectorInt newgridposition)
+{
+    color = newcolor;
+    gridposition = newgridposition;
 }
 
 Block::~Block()
 {
-    // TODO Auto-generated destructor stub
+
 }

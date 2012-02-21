@@ -1,13 +1,27 @@
 #include "include/Declarations.h"
-#include "include/Grid.h"
-#include <iostream>
+#include "include/GravityGrid.h"
+#include "include/GameWindow.h"
 
-sf::RenderWindow Game(sf::VideoMode(640, 480, 32), "France");
+GameWindow Game;
 
 int main()
 {
-    Grid<int> france;
+    Event event;
     Game.Clear();
-    while (true)
+    GravityGrid<Block> france(VectorInt(8, 8), VectorFloat(64, 64),
+                              VectorFloat(0, 0));
+    while (Game.IsOpened()) {
+        while (Game.GetEvent(event)) {
+            if (event.Type == sf::Event::Closed) Game.Close();
+        }
+
+
+
+
         Game.Display();
+    }
+
+    //TODO: Get a GravityGrid visible
+    //TODO: Have a Grid fill itself with blocks
+    //TODO: Implement a GameState, and derive more states from it
 }

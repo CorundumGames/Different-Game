@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Different Game" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Different Game" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Different Game" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Linker>
+			<Add library="sfml-audio" />
+			<Add library="sfml-graphics" />
+			<Add library="sfml-network" />
+			<Add library="sfml-system" />
+			<Add library="sfml-window" />
+		</Linker>
+		<Unit filename="include/Block.h" />
+		<Unit filename="include/Clickable.h" />
+		<Unit filename="include/Declarations.h" />
+		<Unit filename="include/GameStateManager.h" />
+		<Unit filename="include/GameWindow.h" />
+		<Unit filename="include/GravityGrid.h" />
+		<Unit filename="include/Grid.h" />
+		<Unit filename="include/Movable.h" />
+		<Unit filename="include/ScoreKeeper.h" />
+		<Unit filename="include/Visible.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="src/Block.cpp" />
+		<Unit filename="src/Clickable.cpp" />
+		<Unit filename="src/GameStateManager.cpp" />
+		<Unit filename="src/GameWindow.cpp" />
+		<Unit filename="src/Movable.cpp" />
+		<Unit filename="src/ScoreKeeper.cpp" />
+		<Unit filename="src/Visible.cpp" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

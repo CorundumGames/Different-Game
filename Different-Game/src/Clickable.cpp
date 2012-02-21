@@ -6,20 +6,13 @@
  */
 
 #include "../include/Declarations.h"
+#include "../include/Clickable.h"
 
-/*
- * Abstract base class meant to give input-handling functionality.
- */
-class Clickable
+Clickable::Clickable()
 {
-    public:
-        Clickable();
-        virtual ~Clickable();
+    clickable = false;
+}
 
-        virtual void handleInput(const InputHandler& input) = 0;
-        void setClickable(bool newclickable);
-        bool isClickable() const;
-    protected:
-        bool clickable;
-    private:
-};
+void Clickable::setClickable(bool newclickable) { clickable = newclickable; }
+
+bool Clickable::isClickable() const { return clickable; }

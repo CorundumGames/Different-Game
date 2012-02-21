@@ -8,6 +8,7 @@
 #ifndef GRID_H_
 #define GRID_H_
 
+#include <boost/numeric/ublas/matrix.hpp>
 #include "Declarations.h"
 
 /*
@@ -24,7 +25,7 @@ class Grid
         Grid<T> ();
 
         //This overloaded constructor is preferred, but the default is fine.
-        Grid<T> (const VectorInt& newgridsize, const VectorFloat& newcellsize,
+        Grid<T> (const VectorInt& newdimensions, const VectorFloat& newcellsize,
                  const VectorFloat& newlocation);
 
         /*** Begin object operations ***/
@@ -37,10 +38,11 @@ class Grid
 
         /*** Begin dimension operations ***/
 
-        //This will delete the grid's contents!
+        //These will delete the grid's contents!
         //Does not affect cellsize, gridsize, or location.
         void setDimensions(const VectorInt& newdimensions);
         void setDimensions(const RectInt& newdimensions);
+
         VectorInt getDimensions() const;
         RectInt getDimensionRect() const;
 
@@ -52,6 +54,7 @@ class Grid
         //Also recalculates gridsize
         void setCellSize(const VectorFloat& newcellsize);
         VectorFloat getCellSize() const;
+        RectFloat getCellRect() const;
 
         /*** End cell operations ***/
 
@@ -60,9 +63,13 @@ class Grid
 
         //Sees if a given coordinate is inside the grid's area.
         bool isInGrid(const VectorFloat& newposition) const;
+        bool isInGrid(const RectFloat& newposition) const;
 
         //Also recalculates cellsize
         void setGridSize(const VectorFloat& newgridsize);
+
+        //Clears the grid and resizes it.  Will remove all blocks on it!
+        void resetGrid(const VectorInt& newdimensions);
 
         VectorFloat getGridSize() const;
 
@@ -91,6 +98,13 @@ class Grid
 
         //TODO: Implement static const unit vectors to multiply speed or velocity by.
     protected:
+
+        //Remakes the grid after all blocks have fallen.
+        void updateGrid();
+
+        //Clears the grid and anything on it.
+        void deleteGrid();
+
         //Size of the grid in blocks.
         VectorInt dimensions;
 
@@ -103,23 +117,28 @@ class Grid
         //Size of the whole grid.  Get/setters must recalculate this and cellsize!
         VectorFloat gridsize;
 
-        //A rectangle representing the grid's area.
-        RectFloat gridarea;
-
-
-        //Called internally by the constructor and setGridSize().
-        void initializeGrid(const VectorInt& newsize);
-
-        //Clears the grid and anything on it.
-        void deleteGrid();
-
-
-        /*
-         * A 2D array.  Need to initialize with a nested for loop.
-         * Must remember to delete it in the destructor and in setGridSize()!
-         */
-        T** objects;
+        //Holds all the blocks.
+        GridMatrix<T, 2> objects;
 
 };
+
+template<class T>
+Grid<T>::Grid(const VectorInt& newdimensions, const VectorFloat& newcellsize,
+        const VectorFloat& newlocation)
+{
+    dimensions = VectorInt(newdimensions.x, newdimensions.y);
+    cellsize = VectorFloat(newcellsize.x, newcellsize.y);
+    location = VectorFloat(newlocation.x, newlocation.y);
+    initializeGrid(dimensions);
+}
+
+template<class T>
+T Grid<T>::get(const VectorInt& newlocation) const
+{
+    return (isCellValid(newlocation)) ?
+            objects[newlocation.x][newlocation.y] : NULL;
+}
+
+
 
 #endif /* GRID_H_ */
