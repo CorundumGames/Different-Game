@@ -11,8 +11,7 @@ int main()
     Game.Clear(Color(50, 50, 100));
     GravityGrid<Block> france(VectorInt(8, 8), VectorFloat(64, 64),
                               VectorFloat(0, 0));
-    france.resetGrid(france.getDimensions());
-    Game.Draw(france.get(VectorInt(0, 0)).getSprite());
+
 
 
     while (Game.IsOpened()) {
@@ -21,7 +20,7 @@ int main()
         }
 
 
-
+        Game.Draw(france.get(VectorInt(0, 0)).getSprite());
 
         Game.Display();
     }

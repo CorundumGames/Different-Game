@@ -7,6 +7,7 @@
 #ifndef GRAVITYGRID_H_
 #define GRAVITYGRID_H_
 
+#include <boost/multi_array.hpp>
 #include "Declarations.h"
 #include "Grid.h"
 

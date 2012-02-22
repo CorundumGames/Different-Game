@@ -27,6 +27,7 @@ class Block : public Clickable, public Movable, public Visible
 
         VectorInt getGridPosition() const;
         void setGridPosition(const VectorInt& newgridposition);
+        void snapToGrid();  //Works via its center.
 
         bool anyBlocksAdjacent() const;
         void select();

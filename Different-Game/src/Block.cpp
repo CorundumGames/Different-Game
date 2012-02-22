@@ -23,6 +23,14 @@ Block::~Block()
 
 }
 
+void Block::initialize(const Color& newcolor, const VectorInt& newgridposition)
+{
+    color = newcolor;
+    gridposition = newgridposition;
+    image.LoadFromFile("../gfx/block.png");
+    sprite.SetImage(image);
+}
+
 void Block::handleInput(const InputHandler& input)
 {
 

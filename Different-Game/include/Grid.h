@@ -8,9 +8,9 @@
 #ifndef GRID_H_
 #define GRID_H_
 
-#include <boost/numeric/ublas/matrix.hpp>
 #include "Declarations.h"
-
+#include "Block.h"
+#include <boost/multi_array.hpp>
 /*
  * Holds anything.  Grid<T> is designed to be showed on screen.  It's designed
  * to be flexible, safe, and easy.  This class is contained entirely in a header
@@ -28,39 +28,40 @@ class Grid
         Grid<T> (const VectorInt& newdimensions, const VectorFloat& newcellsize,
                  const VectorFloat& newlocation);
 
-        /*** Begin object operations ***/
+        /*** Begin object operations ******************************************/
 
-        T get(const VectorInt& newlocation) const;
+        T get(const VectorInt& thelocation) const;
         void set(const T& t, const VectorInt& newlocation);
 
-        /*** End object operations ***/
+        /*** End object operations ********************************************/
 
 
-        /*** Begin dimension operations ***/
+        /*** Begin dimension operations ***************************************/
 
         //These will delete the grid's contents!
         //Does not affect cellsize, gridsize, or location.
         void setDimensions(const VectorInt& newdimensions);
         VectorInt getDimensions() const { return dimensions; }
 
-        /*** End dimension operations ***/
+        /*** End dimension operations *****************************************/
 
 
-        /*** Begin cell operations ***/
+        /*** Begin cell operations ********************************************/
 
         //Also recalculates gridsize
         void setCellSize(const VectorFloat& newcellsize);
         VectorFloat getCellSize() const { return cellsize; }
         RectFloat getCellRect() const;
 
-        /*** End cell operations ***/
+        /*** End cell operations **********************************************/
 
 
-        /*** Begin grid operations ***/
+        /*** Begin grid operations ********************************************/
 
         //Sees if a given coordinate is inside the grid's area.
-        bool isInGrid(const VectorFloat& newposition) const;
-        bool isInGrid(const RectFloat& newposition) const;
+        bool isInGrid(const VectorFloat& theposition) const;
+        bool isInGrid(const RectFloat& theposition) const;
+
 
         //Also recalculates cellsize
         void setGridSize(const VectorFloat& newgridsize);
@@ -70,10 +71,10 @@ class Grid
 
         VectorFloat getGridSize() const;
 
-        /*** End grid operations ***/
+        /*** End grid operations **********************************************/
 
 
-        /*** Begin location operations ***/
+        /*** Begin location operations ****************************************/
 
         //Does not affect grid's contents.
         void setLocation(const VectorFloat& newlocation);
@@ -81,17 +82,15 @@ class Grid
         //Returns the upper left corner of the grid.
         VectorFloat getLocation() const;
 
-        /*** End location operations ***/
+        /*** End location operations ******************************************/
 
 
-        /*** Begin validity checkers ***/
-
-        //bool isCellValid(const VectorInt& cell) const;
+        /*** Begin validity checkers ******************************************/
 
         //Sees if a position is in a particular cell.
-        bool isInCell(const VectorFloat& newposition, const VectorInt& cell) const;
+        bool isInCell(const VectorFloat& theposition, const VectorInt& cell) const;
 
-        /*** End validity checkers ***/
+        /*** End validity checkers ********************************************/
 
         //TODO: Implement static const unit vectors to multiply speed or velocity by.
     protected:
@@ -121,36 +120,29 @@ class Grid
 
 template<class T>
 Grid<T>::Grid(const VectorInt& newdimensions, const VectorFloat& newcellsize,
-        const VectorFloat& newlocation)
+              const VectorFloat& newlocation)
 {
     dimensions = VectorInt(newdimensions.x, newdimensions.y);
     cellsize = VectorFloat(newcellsize.x, newcellsize.y);
     location = VectorFloat(newlocation.x, newlocation.y);
-    resetGrid(dimensions);
+    resetGrid(newdimensions);
 }
 
 template<class T>
-T Grid<T>::get(const VectorInt& newlocation) const
+T Grid<T>::get(const VectorInt& thelocation) const
 {
-     return objects[newlocation.x][newlocation.y];
+     return objects[thelocation.x][thelocation.y];
 }
 
 template<class T>
 void Grid<T>::resetGrid(const VectorInt& newdimensions)
 {
+     GridMatrix::extent_gen extents;
      objects.resize(boost::extents[newdimensions.x][newdimensions.y]);
-     for (int i = 0; i < objects.shape()[0]; ++i)
-          for (int j = 0; j < objects.shape()[1]; ++j)
-               objects[i][j] = Block(Color::White, VectorInt(i, j));
+     for (int i = 0; i < newdimensions.x; ++i)
+          for (int j = 0; j < newdimensions.y; ++j)
+               objects[i][j].initialize(Color::White, VectorInt(i, j));
 
 }
-
-/*template<class T>
-bool Grid<T>::isCellValid(const VectorInt& cell) const
-{
-     return (cell.x >= 0) && (cell.y >= 0) &&
-            (cell.x < objects.shape()[0]) && (cell.y < objects.shape()[1]);
-}  Deprecated?  */
-
 
 #endif /* GRID_H_ */
