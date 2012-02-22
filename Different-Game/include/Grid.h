@@ -25,13 +25,16 @@ class Grid
         Grid<T> () {};
 
         //This overloaded constructor is preferred, but the default is fine.
-        Grid<T> (const VectorInt& newdimensions, const VectorFloat& newcellsize,
-                 const VectorFloat& newlocation);
+        Grid<T> (const VectorInt newdimensions, const VectorFloat newcellsize,
+                 const VectorFloat newlocation);
 
         /*** Begin object operations ******************************************/
 
-        T get(const VectorInt& thelocation) const;
-        void set(const T& t, const VectorInt& newlocation);
+        T get(const VectorInt thelocation) const
+            { return objects[thelocation.x][thelocation.y]; }
+
+        void set(T t, const VectorInt newlocation)
+            { objects[newlocation.x][newlocation.y] = t; }
 
         /*** End object operations ********************************************/
 
@@ -40,7 +43,9 @@ class Grid
 
         //These will delete the grid's contents!
         //Does not affect cellsize, gridsize, or location.
-        void setDimensions(const VectorInt& newdimensions);
+        void setDimensions(const VectorInt newdimensions)
+            { dimensions = VectorInt(newdimensions.x, newdimensions.y); }
+
         VectorInt getDimensions() const { return dimensions; }
 
         /*** End dimension operations *****************************************/
@@ -49,7 +54,7 @@ class Grid
         /*** Begin cell operations ********************************************/
 
         //Also recalculates gridsize
-        void setCellSize(const VectorFloat& newcellsize);
+        void setCellSize(const VectorFloat newcellsize);
         VectorFloat getCellSize() const { return cellsize; }
         RectFloat getCellRect() const;
 
@@ -59,15 +64,16 @@ class Grid
         /*** Begin grid operations ********************************************/
 
         //Sees if a given coordinate is inside the grid's area.
-        bool isInGrid(const VectorFloat& theposition) const;
-        bool isInGrid(const RectFloat& theposition) const;
+        bool isInGrid(const VectorFloat theposition) const;
+        bool isInGrid(const RectFloat theposition) const;
 
 
         //Also recalculates cellsize
-        void setGridSize(const VectorFloat& newgridsize);
+        void setGridSize(const VectorFloat newgridsize);
 
         //Clears the grid and resizes it.  Will remove all blocks on it!
-        void resetGrid(const VectorInt& newdimensions);
+        //Also, all objects inside must be default-constructible.
+        void resetGrid(const VectorInt newdimensions);
 
         VectorFloat getGridSize() const;
 
@@ -77,7 +83,7 @@ class Grid
         /*** Begin location operations ****************************************/
 
         //Does not affect grid's contents.
-        void setLocation(const VectorFloat& newlocation);
+        void setLocation(const VectorFloat newlocation);
 
         //Returns the upper left corner of the grid.
         VectorFloat getLocation() const;
@@ -88,7 +94,7 @@ class Grid
         /*** Begin validity checkers ******************************************/
 
         //Sees if a position is in a particular cell.
-        bool isInCell(const VectorFloat& theposition, const VectorInt& cell) const;
+        bool isInCell(const VectorFloat theposition, const VectorInt cell) const;
 
         /*** End validity checkers ********************************************/
 
@@ -110,17 +116,14 @@ class Grid
         //Size of each cell.  Each cell must be the same size!
         VectorFloat cellsize;
 
-        //Size of the whole grid.  Get/setters must recalculate this and cellsize!
-        VectorFloat gridsize;
-
         //Holds all the blocks.
         GridMatrix objects;
 
 };
 
 template<class T>
-Grid<T>::Grid(const VectorInt& newdimensions, const VectorFloat& newcellsize,
-              const VectorFloat& newlocation)
+Grid<T>::Grid(const VectorInt newdimensions, const VectorFloat newcellsize,
+              const VectorFloat newlocation)
 {
     dimensions = VectorInt(newdimensions.x, newdimensions.y);
     cellsize = VectorFloat(newcellsize.x, newcellsize.y);
@@ -129,20 +132,12 @@ Grid<T>::Grid(const VectorInt& newdimensions, const VectorFloat& newcellsize,
 }
 
 template<class T>
-T Grid<T>::get(const VectorInt& thelocation) const
+void Grid<T>::resetGrid(const VectorInt newdimensions)
 {
-     return objects[thelocation.x][thelocation.y];
-}
-
-template<class T>
-void Grid<T>::resetGrid(const VectorInt& newdimensions)
-{
-     GridMatrix::extent_gen extents;
      objects.resize(boost::extents[newdimensions.x][newdimensions.y]);
      for (int i = 0; i < newdimensions.x; ++i)
           for (int j = 0; j < newdimensions.y; ++j)
-               objects[i][j].initialize(Color::White, VectorInt(i, j));
-
+               objects[i][j] = T();
 }
 
 #endif /* GRID_H_ */

@@ -9,8 +9,18 @@ int main()
 {
     Event event;
     Game.Clear(Color(50, 50, 100));
-    GravityGrid<Block> france(VectorInt(8, 8), VectorFloat(64, 64),
+    GravityGrid<Block> france(VectorInt(8, 8),
+                              VectorFloat(64, 64),
                               VectorFloat(0, 0));
+    Block::loadImage();
+
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            VectorInt temp(i, j);
+            france.set(Block(Color::White, temp), temp);
+        }
+    }
+
 
 
 
@@ -20,7 +30,7 @@ int main()
         }
 
 
-        Game.Draw(france.get(VectorInt(0, 0)).getSprite());
+      //  Game.Draw(france.get(VectorInt(0, 0)).getSprite());
 
         Game.Display();
     }

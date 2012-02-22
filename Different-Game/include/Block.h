@@ -10,10 +10,10 @@ class Block : public Clickable, public Movable, public Visible
 {
     public:
         Block() {};
-        Block(const Color& newcolor, const VectorInt& newgridposition);
+        Block(const Color newcolor, const VectorInt newgridposition);
 
-        void initialize(const Color& newcolor,
-                        const VectorInt& newgridposition);
+        void initialize(const Color newcolor,
+                        const VectorInt newgridposition);
 
         virtual ~Block();
 
@@ -21,12 +21,12 @@ class Block : public Clickable, public Movable, public Visible
         void setMoving(const bool newmoving);
 
         Color getColor() const;
-        void setColor(const Color& newcolor);
+        void setColor(const Color newcolor);
         void blinkOn();
         void blinkOff();
 
         VectorInt getGridPosition() const;
-        void setGridPosition(const VectorInt& newgridposition);
+        void setGridPosition(const VectorInt newgridposition);
         void snapToGrid();  //Works via its center.
 
         bool anyBlocksAdjacent() const;
@@ -34,6 +34,8 @@ class Block : public Clickable, public Movable, public Visible
         void deselect();
         void move();
         void handleInput(const InputHandler& input);
+
+        static void loadImage() { image.LoadFromFile("./gfx/block.png"); }
 
     private:
         bool moving;

@@ -18,13 +18,14 @@ class GravityGrid : public Grid<T>
         GravityGrid<T> ();
 
         //This overloaded constructor is preferred, but the default is fine.
-        GravityGrid<T> (const VectorInt& newgridsize,
-                        const VectorFloat& newcellsize,
-                        const VectorFloat& newlocation);
+        GravityGrid<T> (const VectorInt newdimensions,
+                        const VectorFloat newcellsize,
+                        const VectorFloat newlocation);
+
 
     private:
         Direction down;
-        VectorInt gridsize;
+        VectorInt dimensions;
         VectorFloat cellsize;
         VectorFloat location;
 
@@ -33,12 +34,12 @@ class GravityGrid : public Grid<T>
 };
 
 template<class T>
-GravityGrid<T>::GravityGrid(const VectorInt& newgridsize,
-                            const VectorFloat& newcellsize,
-                            const VectorFloat& newlocation)
+GravityGrid<T>::GravityGrid(const VectorInt newdimensions,
+                            const VectorFloat newcellsize,
+                            const VectorFloat newlocation)
 {
-      gridsize = newgridsize;
-      cellsize = newcellsize;
-      location = newlocation;
+      dimensions = VectorInt(newdimensions.x, newdimensions.y);
+      cellsize = VectorFloat(newcellsize.x, newcellsize.y);
+      location = VectorFloat(newlocation.x, newlocation.y);
 }
 #endif //GRAVITYGRID_H_

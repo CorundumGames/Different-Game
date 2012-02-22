@@ -10,11 +10,10 @@
 
 ImageFile Block::image;
 
-Block::Block(const Color& newcolor, const VectorInt& newgridposition)
+Block::Block(const Color newcolor, const VectorInt newgridposition)
 {
-    color = newcolor;
-    gridposition = newgridposition;
-    image.LoadFromFile("../gfx/block.png");
+    color = Color(newcolor.r, newcolor.g, newcolor.b, newcolor.a);
+    gridposition = VectorInt(newgridposition.x, newgridposition.y);
     sprite.SetImage(image);
 }
 
@@ -23,13 +22,14 @@ Block::~Block()
 
 }
 
-void Block::initialize(const Color& newcolor, const VectorInt& newgridposition)
+void Block::initialize(const Color newcolor, const VectorInt newgridposition)
 {
-    color = newcolor;
-    gridposition = newgridposition;
-    image.LoadFromFile("../gfx/block.png");
+    color = Color(newcolor.r, newcolor.g, newcolor.b, newcolor.a);
+    gridposition = VectorInt(newgridposition.x, newgridposition.y);
     sprite.SetImage(image);
 }
+
+
 
 void Block::handleInput(const InputHandler& input)
 {
