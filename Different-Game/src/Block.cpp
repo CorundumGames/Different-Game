@@ -9,12 +9,11 @@
 #include "../include/Block.h"
 
 ImageFile Block::image;
+Direction block::down;
 
 Block::Block(const Color newcolor, const VectorInt newgridposition)
 {
-    color = Color(newcolor.r, newcolor.g, newcolor.b, newcolor.a);
-    gridposition = VectorInt(newgridposition.x, newgridposition.y);
-    sprite.SetImage(image);
+    initialize(newcolor, newgridposition);
 }
 
 Block::~Block()
@@ -24,12 +23,10 @@ Block::~Block()
 
 void Block::initialize(const Color newcolor, const VectorInt newgridposition)
 {
-    color = Color(newcolor.r, newcolor.g, newcolor.b, newcolor.a);
-    gridposition = VectorInt(newgridposition.x, newgridposition.y);
-    sprite.SetImage(image);
+    color = newcolor;
+    gridposition = newgridposition;
+    getSprite().SetImage(image);
 }
-
-
 
 void Block::handleInput(const InputHandler& input)
 {

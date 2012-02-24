@@ -10,24 +10,25 @@
 class Movable
 {
     public:
-        Movable();
+        Movable()
+            { velocity = VectorFloat(0, 0); }
+
         virtual void move() = 0;
 
-        VectorFloat getVelocity() const;
-        void setVelocity(const VectorFloat& newvelocity);
+        //Get/setters
+        VectorFloat getVelocity() const            { return velocity;   }
+        void setVelocity(const VectorFloat newvel) { velocity = newvel; }
 
-        VectorFloat getAcceleration(Direction dir) const;
     protected:
-        //For movement and rotation.
-        Matrix2D matrix;
-
-        //matrix is translated by this during movement.
+        //Acceleration due to gravity will be constant, as it is in real life.
+        VectorFloat getAcceleration(const Direction dir) const
+            { return acceleration[int(dir)]; }
+    private:
+        //Position, held by the sprite, is translated by this during movement.
         VectorFloat velocity;
 
-        /*
-         * Remember, enum Direction order is SOUTH, EAST, NORTH, WEST.
-         * Acceleration is not meant to change.  Meant to be accessed by enum.
-         */
+         //Remember, enum Direction order is SOUTH, EAST, NORTH, WEST.
+         //Acceleration is not meant to change. Should be accessed by enum.
         static const VectorFloat acceleration[4];
 };
 

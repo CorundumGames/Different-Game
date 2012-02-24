@@ -41,8 +41,11 @@ class Block : public Clickable, public Movable, public Visible
         bool moving;
         bool selected;
         static ImageFile image;
+        static Direction down;
+
         Color color;
         VectorInt gridposition;
+
 };
 
 #endif //BLOCKS_H_

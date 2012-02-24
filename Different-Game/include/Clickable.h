@@ -10,13 +10,13 @@
 class Clickable
 {
     public:
-        Clickable();
+        Clickable() { clickable = false; }
         virtual void handleInput(const InputHandler& input) = 0;
 
-        void setClickable(bool newclickable);
-        bool isClickable() const;
+        void setClickable(const bool newclickable) { clickable = newclickable; }
+        bool isClickable() const { return clickable; }
 
-    protected:
+    private:
         bool clickable;
 };
 

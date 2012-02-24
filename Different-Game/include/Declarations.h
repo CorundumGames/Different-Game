@@ -12,7 +12,7 @@
 #include <boost/multi_array.hpp>
 
 //Class forward declarations
-enum Direction {SOUTH = 0, EAST, NORTH, WEST};
+enum class Direction : char {SOUTH = 0, EAST, NORTH, WEST};
 
 class Visible;
 class Movable;
@@ -21,7 +21,6 @@ class Block;
 class GameWindow;
 class ScoreKeeper;
 template<class T> class Grid;
-template<class T> class GravityGrid;
 
 //Typedefs to ease portability.
 
@@ -30,7 +29,6 @@ typedef sf::Color Color;
 typedef sf::Event Event;
 typedef sf::Input InputHandler;
 typedef sf::Image ImageFile;
-typedef sf::Matrix3 Matrix2D;
 typedef sf::Sprite Sprite;
 typedef sf::String TextDisplay;
 typedef sf::Rect<int> RectInt;
@@ -39,7 +37,6 @@ typedef sf::RenderWindow Screen;
 typedef sf::Vector2<int> VectorInt;
 typedef sf::Vector2<float> VectorFloat;
 typedef sf::VideoMode VideoMode;
-typedef unsigned long long int uint64;
 
 
 #endif /* DECLARATIONS_H_ */

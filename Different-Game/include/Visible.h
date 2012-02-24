@@ -10,20 +10,41 @@ class Visible
 {
     public:
         //Used for drawing.
-        Sprite& getSprite();
+        Sprite& getSprite()
+            { return sprite; }
+
 
         //Sets the position of the sprite.
-        void setPosition(const VectorFloat& newposition);
+        void setPosition(const VectorFloat newpos)
+            { sprite.SetPosition(newpos); }
 
         //Gets the position of the sprite.
-        VectorFloat getPosition() const;
+        VectorFloat getPosition() const
+            { return sprite.GetPosition(); }
 
     protected:
-        //ImageFiles must be owned by all derived objects.
+        //Assigns an ImageFile to the sprite.
+        void setSpriteImage(ImageFile& newimage)
+            { sprite.SetImage(newimage); }
 
-        //The image that is actually visible to the user.  Its built-in
-        //position vector is meant to be used as the object's position.
+        //This way Visible can't be instantiated on its own.
+        Visible() {};
+
+    private:
+        /*
+         * ImageFiles must be owned by all derived objects, because they will
+         * have different needs.  (e.g. some might want a static ImageFile,
+         * others might not.)
+         *
+         * The image that is actually visible to the user.  Its built-in
+         * position vector is meant to be used as the object's position.
+         * Movable::move() should create a temporary vector that adds together
+         * this sprite's position, Movable's velocity, and Movable's acceleration
+         * THEN pass it to setPosition().
+         */
         Sprite sprite;
+
+
 };
 
 #endif // VISIBLE_H_
