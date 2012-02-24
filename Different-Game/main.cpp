@@ -1,6 +1,7 @@
 #include "include/Declarations.h"
 #include "include/GameWindow.h"
 #include "include/Block.h"
+#include "include/Grid.h"
 
 GameWindow Game;
 
@@ -12,14 +13,13 @@ int main()
                        VectorFloat(64, 64),
                        VectorFloat(0, 0));
 
-    france.resetGrid(france.getDimensions());
-    Block::loadImage();
+    Block::loadImage("./gfx/block.png");
 
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
             VectorInt temp(i, j);
 
-            france.set(Block(Color::White, temp), temp);
+            france.set(Block(Color::White, temp, &france), temp);
         }
     }
 

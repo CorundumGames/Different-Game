@@ -1,16 +1,20 @@
 #ifndef BLOCKS_H_
 #define BLOCKS_H_
 
+#include <memory>
 #include "Declarations.h"
 #include "Clickable.h"
 #include "Movable.h"
 #include "Visible.h"
+#include "Grid.h"
 
 class Block : public Clickable, public Movable, public Visible
 {
     public:
         Block() {};
-        Block(const Color newcolor, const VectorInt newgridposition);
+        Block(const Color newcolor,
+              const VectorInt newgridposition,
+              Grid<Block>* newcontainer);
 
         void initialize(const Color newcolor,
                         const VectorInt newgridposition);
@@ -35,17 +39,18 @@ class Block : public Clickable, public Movable, public Visible
         void move();
         void handleInput(const InputHandler& input);
 
-        static void loadImage() { image.LoadFromFile("./gfx/block.png"); }
+        static void loadImage(std::string filename);
 
     private:
         bool moving;
         bool selected;
-        static ImageFile image;
-        static Direction down;
 
         Color color;
         VectorInt gridposition;
 
+        static ImageFile image;
+        static Direction down;
+        std::shared_ptr<Grid<Block>> container;
 };
 
 #endif //BLOCKS_H_

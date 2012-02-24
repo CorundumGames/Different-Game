@@ -116,7 +116,7 @@ Grid<T>::Grid(const VectorInt& newdimensions,
               const VectorFloat newcellsize,
               const VectorFloat newlocation)
 {
-    resetGrid(newdimensions);
+    setDimensions(newdimensions);
     cellsize = newcellsize;
     location = newlocation;
 }

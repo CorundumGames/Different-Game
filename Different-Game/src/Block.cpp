@@ -5,27 +5,29 @@
  *      Author: jesse
  */
 
+#include <memory>
 #include "../include/Declarations.h"
+#include "../include/Grid.h"
 #include "../include/Block.h"
 
 ImageFile Block::image;
-Direction block::down;
+Direction Block::down;
 
-Block::Block(const Color newcolor, const VectorInt newgridposition)
+Block::Block(const Color newcolor,
+             const VectorInt newgridposition,
+             Grid<Block>* newcontainer)
 {
-    initialize(newcolor, newgridposition);
+    color = newcolor;
+    gridposition = newgridposition;
+    container = std::shared_ptr<Grid<Block>>(newcontainer);
+    getSprite().SetImage(image);
+    getSprite().SetPosition(gridposition*(container->getCellSize().x),
+                            gridposition*(container->getCellSize().y));
 }
 
 Block::~Block()
 {
 
-}
-
-void Block::initialize(const Color newcolor, const VectorInt newgridposition)
-{
-    color = newcolor;
-    gridposition = newgridposition;
-    getSprite().SetImage(image);
 }
 
 void Block::handleInput(const InputHandler& input)
@@ -36,4 +38,9 @@ void Block::handleInput(const InputHandler& input)
 void Block::move()
 {
 
+}
+
+void Block::loadImage(std::string filename)
+{
+    image.LoadFromFile(filename);
 }
