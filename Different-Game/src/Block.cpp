@@ -12,22 +12,25 @@
 
 ImageFile Block::image;
 Direction Block::down;
+std::shared_ptr<Grid<Block>> Block::container;
 
-Block::Block(const Color newcolor,
-             const VectorInt newgridposition,
-             Grid<Block>* newcontainer)
+Block::Block(const Color newcolor, const VectorInt newgridposition)
 {
     color = newcolor;
     gridposition = newgridposition;
-    container = std::shared_ptr<Grid<Block>>(newcontainer);
     getSprite().SetImage(image);
-    getSprite().SetPosition(gridposition*(container->getCellSize().x),
-                            gridposition*(container->getCellSize().y));
+    getSprite().SetPosition(gridposition.x*(container->getCellSize().x),
+                            gridposition.y*(container->getCellSize().y));
 }
 
 Block::~Block()
 {
 
+}
+
+VectorFloat Block::getImageDims()
+{
+    return VectorFloat(image.GetWidth(), image.GetHeight());
 }
 
 void Block::handleInput(const InputHandler& input)
@@ -43,4 +46,9 @@ void Block::move()
 void Block::loadImage(std::string filename)
 {
     image.LoadFromFile(filename);
+}
+
+void Block::initContainer(Grid<Block>* newcontainer)
+{
+    container = std::shared_ptr<Grid<Block>>(newcontainer);
 }

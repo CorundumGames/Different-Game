@@ -11,46 +11,82 @@
 class Block : public Clickable, public Movable, public Visible
 {
     public:
+        //Not called explicitly.  Only so it's legal in boost::multi_array
         Block() {};
-        Block(const Color newcolor,
-              const VectorInt newgridposition,
-              Grid<Block>* newcontainer);
 
-        void initialize(const Color newcolor,
-                        const VectorInt newgridposition);
+        //This is what should be used.
+        Block(const Color newcolor, const VectorInt newgridposition);
 
+        //Removes self from the grid.
         virtual ~Block();
 
+        //Gets and sets this Block's ability to move.
         bool isMoving() const;
         void setMoving(const bool newmoving);
 
+        //Returns the color of this block.
         Color getColor() const;
-        void setColor(const Color newcolor);
+
+        //Returns this Block's Grid (not screen) position
+        VectorInt getGridPosition() const;
+
+
+        //Moves this Block if all checks inside return true.
+        void move();
+
+        //Deter
+        void handleInput(const InputHandler& input);
+
+        //Loads the image from a file into the class.
+        static void loadImage(std::string filename);
+
+        //So the Block can know of the Grid's properties.
+        //Converted to a std::shared_ptr
+        static void initContainer(Grid<Block>* newcontainer);
+
+        static VectorFloat getImageDims();
+
+    private:
+        //Preps the block and neighbors to be cleared.
+        void select();
+
+        //Un-preps a block if anywhere else is clicked.
+        void deselect();
+
+        //These lighten and darken this Block respectively.
+        //Used to illustrate selection.
         void blinkOn();
         void blinkOff();
 
-        VectorInt getGridPosition() const;
-        void setGridPosition(const VectorInt newgridposition);
-        void snapToGrid();  //Works via its center.
+        //Snaps this Block to the closest Grid cell by checking the centers
+        //of both this Block and the relevant Grid cells.
+        void snapToGrid();
 
+        //Returns true if even one like-colored block is adjacent.
         bool anyBlocksAdjacent() const;
-        void select();
-        void deselect();
-        void move();
-        void handleInput(const InputHandler& input);
 
-        static void loadImage(std::string filename);
 
-    private:
+
+        //If true, this block can fall.
         bool moving;
+
+        //If true, clicking this block again will destroy it and neighbors.
         bool selected;
 
+        //The color to tint the block.
         Color color;
+
+        //Position on the GRID, not on the screen
         VectorInt gridposition;
 
+        //Static so the image only needs to be loaded once.
         static ImageFile image;
+
+        //So the block can fall the right direction.
         static Direction down;
-        std::shared_ptr<Grid<Block>> container;
+
+        //Smart pointer to its container so that it can know its properties.
+        static std::shared_ptr<Grid<Block>> container;
 };
 
 #endif //BLOCKS_H_

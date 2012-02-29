@@ -29,6 +29,8 @@ class Grid
                  const VectorFloat newcellsize,
                  const VectorFloat newlocation);
 
+        ~Grid<T>();
+
         /*** Begin object operations ******************************************/
 
         T get(const VectorInt& thelocation) const;
@@ -119,6 +121,11 @@ Grid<T>::Grid(const VectorInt& newdimensions,
     setDimensions(newdimensions);
     cellsize = newcellsize;
     location = newlocation;
+}
+
+template<class T>
+Grid<T>::~Grid()
+{
 }
 
 template<class T>
