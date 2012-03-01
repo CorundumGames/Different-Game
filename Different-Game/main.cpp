@@ -8,12 +8,12 @@ GameWindow Game;
 int main()
 {
     Block::loadImage("./gfx/block.png");
-
+    Block::initMap();
     Event event;
     Game.Clear(Color(50, 50, 100));
     Grid<Block> france(VectorInt(8, 8),
                        Block::getImageDims(),
-                       VectorFloat(0, 0));
+                       VectorFloat(224, 48));
 
     Block::initContainer(&france);
 
@@ -21,8 +21,7 @@ int main()
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
             VectorInt temp(i, j);
-
-            france.set(Block(Color::White, temp), temp);
+            france.set(Block(Block::getRandomColor(7), temp), temp);
         }
     }
 

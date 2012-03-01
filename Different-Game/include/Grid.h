@@ -159,6 +159,12 @@ void Grid<T>::setDimensions(const VectorInt newdimensions)
 }
 
 template<class T>
+VectorFloat Grid<T>::getLocation() const
+{
+    return location;
+}
+
+template<class T>
 void Grid<T>::resetGrid(const VectorInt& newdimensions)
 {
      objects.resize(boost::extents[newdimensions.x][newdimensions.y]);

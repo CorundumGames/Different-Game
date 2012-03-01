@@ -2,6 +2,7 @@
 #define BLOCKS_H_
 
 #include <memory>
+#include <map>
 #include "Declarations.h"
 #include "Clickable.h"
 #include "Movable.h"
@@ -44,7 +45,12 @@ class Block : public Clickable, public Movable, public Visible
         //Converted to a std::shared_ptr
         static void initContainer(Grid<Block>* newcontainer);
 
+        //Initializes the std::map used to look up color values
+        static void initMap();
+
         static VectorFloat getImageDims();
+
+        static Color getRandomColor(int max_colors);
 
     private:
         //Preps the block and neighbors to be cleared.
@@ -73,9 +79,6 @@ class Block : public Clickable, public Movable, public Visible
         //If true, clicking this block again will destroy it and neighbors.
         bool selected;
 
-        //The color to tint the block.
-        Color color;
-
         //Position on the GRID, not on the screen
         VectorInt gridposition;
 
@@ -87,6 +90,9 @@ class Block : public Clickable, public Movable, public Visible
 
         //Smart pointer to its container so that it can know its properties.
         static std::shared_ptr<Grid<Block>> container;
+
+        //Map of available colors, for randomly assigning a color.
+        static std::map<AvailableColor, Color> colors;
 };
 
 #endif //BLOCKS_H_
