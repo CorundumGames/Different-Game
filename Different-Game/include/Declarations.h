@@ -10,13 +10,13 @@
 
 #include <SFML/Graphics.hpp>
 #include <boost/multi_array.hpp>
+#include <utility>
 
 //Class forward declarations
 enum class Direction : char {SOUTH = 0, EAST, NORTH, WEST};
 enum class AvailableColor : char {
-    RED, BLUE, GREEN, YELLOW, CYAN, PURPLE, WHITE
+    RED = 0, BLUE, GREEN, YELLOW, CYAN, PURPLE, WHITE
 };
-
 class Visible;
 class Movable;
 class Clickable;
@@ -38,7 +38,10 @@ typedef sf::Rect<int> RectInt;
 typedef sf::Rect<float> RectFloat;
 typedef sf::RenderWindow Screen;
 typedef sf::Vector2<int> VectorInt;
+typedef sf::Vector2<int> PointInt;   //Same as VectorInt, just for clarity!
 typedef sf::Vector2<float> VectorFloat;
+typedef sf::Vector2<float> PointFloat;   //Again for VectorFloat
 typedef sf::VideoMode VideoMode;
+typedef std::pair<AvailableColor, Color> ColorPair;
 
 #endif /* DECLARATIONS_H_ */

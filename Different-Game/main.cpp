@@ -15,11 +15,13 @@ int main()
                        Block::getImageDims(),
                        VectorFloat(224, 48));
 
+    france.setCellSize(VectorFloat(48, 48));
+
     Block::initContainer(&france);
 
 
-    for (int i = 0; i < 8; ++i) {
-        for (int j = 0; j < 8; ++j) {
+    for (int i = 0; i < france.getDimensions().x; ++i) {
+        for (int j = 0; j < france.getDimensions().y; ++j) {
             VectorInt temp(i, j);
             france.set(Block(Block::getRandomColor(7), temp), temp);
         }

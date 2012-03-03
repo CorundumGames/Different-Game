@@ -27,14 +27,14 @@ class Grid
         //This overloaded constructor is preferred, but the default is fine.
         Grid<T> (const VectorInt& newdimensions,
                  const VectorFloat newcellsize,
-                 const VectorFloat newlocation);
+                 const PointFloat newlocation);
 
         ~Grid<T>();
 
         /*** Begin object operations ******************************************/
 
-        T get(const VectorInt& thelocation) const;
-        void set(const T t, const VectorInt& newlocation);
+        T get(const PointInt& thelocation) const;
+        void set(const T t, const PointInt& newlocation);
 
         /*** End object operations ********************************************/
 
@@ -52,7 +52,7 @@ class Grid
         /*** Begin grid operations ********************************************/
 
         //Sees if a given coordinate is inside the grid's area.
-        bool isInGrid(const VectorFloat theposition) const;
+        bool isInGrid(const PointFloat theposition) const;
 
         //Also recalculates cellsize
         void setGridSize(const VectorFloat newgridsize);
@@ -68,7 +68,7 @@ class Grid
 
         //This may delete the grid's contents!
         //Does not affect cellsize, gridsize, or location.
-        void setDimensions(const VectorInt newdimensions);
+        void setDimensions(const VectorInt& newdimensions);
 
         /*** End grid operations **********************************************/
 
@@ -76,10 +76,10 @@ class Grid
         /*** Begin location operations ****************************************/
 
         //Does not affect grid's contents.
-        void setLocation(const VectorFloat newlocation);
+        void setLocation(const PointFloat newlocation);
 
         //Returns the upper left corner of the grid.
-        VectorFloat getLocation() const;
+        PointFloat getLocation() const;
 
         /*** End location operations ******************************************/
 
@@ -87,7 +87,7 @@ class Grid
         /*** Begin validity checkers ******************************************/
 
         //Sees if a position is in a particular cell.
-        bool isInCell(const VectorFloat theposition, const VectorInt thecell) const;
+        bool isInCell(const PointFloat theposition, const PointInt thecell) const;
 
         /*** End validity checkers ********************************************/
 
@@ -116,7 +116,7 @@ class Grid
 template<class T>
 Grid<T>::Grid(const VectorInt& newdimensions,
               const VectorFloat newcellsize,
-              const VectorFloat newlocation)
+              const PointFloat newlocation)
 {
     setDimensions(newdimensions);
     cellsize = newcellsize;
@@ -147,13 +147,19 @@ VectorFloat Grid<T>::getCellSize() const
 }
 
 template<class T>
+void Grid<T>::setCellSize(const VectorFloat newcellsize)
+{
+    cellsize = newcellsize;
+}
+
+template<class T>
 VectorInt Grid<T>::getDimensions() const
 {
     return VectorInt(objects.shape()[0], objects.shape()[1]);
 }
 
 template<class T>
-void Grid<T>::setDimensions(const VectorInt newdimensions)
+void Grid<T>::setDimensions(const VectorInt& newdimensions)
 {
     objects.resize(boost::extents[newdimensions.x][newdimensions.y]);
 }

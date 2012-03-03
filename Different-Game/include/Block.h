@@ -50,7 +50,7 @@ class Block : public Clickable, public Movable, public Visible
 
         static VectorFloat getImageDims();
 
-        static Color getRandomColor(int max_colors);
+        static Color getRandomColor(const int max_colors);
 
     private:
         //Preps the block and neighbors to be cleared.
@@ -93,6 +93,9 @@ class Block : public Clickable, public Movable, public Visible
 
         //Map of available colors, for randomly assigning a color.
         static std::map<AvailableColor, Color> colors;
+
+        //So that we can get random numbers (<ctime> changes too slowly)
+        static uint64_t generated_numbers;
 };
 
 #endif //BLOCKS_H_

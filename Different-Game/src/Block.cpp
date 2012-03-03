@@ -9,13 +9,14 @@
 #include "../include/Grid.h"
 #include "../include/Block.h"
 #include <iostream>
-#include <chrono>
+#include <ctime>
 
 
 ImageFile Block::image;
 Direction Block::down;
 std::shared_ptr<Grid<Block>> Block::container;
 std::map<AvailableColor, Color> Block::colors;
+uint64_t Block::generated_numbers;
 
 
 
@@ -28,6 +29,9 @@ Block::Block(const Color newcolor, const VectorInt newgridposition)
                                 gridposition.x*(container->getCellSize().x),
                             container->getLocation().y +
                                 gridposition.y*(container->getCellSize().y));
+
+    getSprite().SetScale(1.0/(getImageDims().x/container->getCellSize().x),
+                         1.0/(getImageDims().y/container->getCellSize().y));
 }
 
 Block::~Block()
@@ -62,6 +66,7 @@ void Block::initContainer(Grid<Block>* newcontainer)
 
 void Block::initMap()
 {
+    generated_numbers = 0;
     colors.insert(ColorPair(AvailableColor::RED, Color::Red));
     colors.insert(ColorPair(AvailableColor::BLUE, Color::Blue));
     colors.insert(ColorPair(AvailableColor::GREEN, Color::Green));
@@ -71,7 +76,7 @@ void Block::initMap()
     colors.insert(ColorPair(AvailableColor::WHITE, Color::White));
 }
 
-Color Block::getRandomColor(int max_colors)
+Color Block::getRandomColor(const int max_colors)
 {
     //We don't want to load a color that doesn't exist!
     try {
@@ -84,6 +89,6 @@ Color Block::getRandomColor(int max_colors)
 
 
     RandomNumber rand;
-    rand.SetSeed(time.now().time_since_epoch());
-    return colors[AvailableColor(rand.Random(0, max_colors))];
+    rand.SetSeed(time(NULL)*++generated_numbers);
+    return colors[AvailableColor(rand.Random(0, max_colors - 1))];
 }
