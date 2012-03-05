@@ -16,7 +16,7 @@ class Block : public Clickable, public Movable, public Visible
         Block() {};
 
         //This is what should be used.
-        Block(const Color newcolor, const VectorInt newgridposition);
+        Block(const Color newcolor, const PointInt newgridposition);
 
         //Removes self from the grid.
         virtual ~Block();
@@ -29,13 +29,15 @@ class Block : public Clickable, public Movable, public Visible
         Color getColor() const;
 
         //Returns this Block's Grid (not screen) position
-        VectorInt getGridPosition() const;
+        PointInt getGridPosition() const;
 
+        //Sees if the block has moved since the last frame.
+        bool hasMoved();
 
         //Moves this Block if all checks inside return true.
         void move();
 
-        //Deter
+        //Handle input
         void handleInput(const InputHandler& input);
 
         //Loads the image from a file into the class.
@@ -50,9 +52,15 @@ class Block : public Clickable, public Movable, public Visible
 
         static VectorFloat getImageDims();
 
+        //Gets one of several colors
         static Color getRandomColor(const int max_colors);
 
+        //Figures out the size of each block.  x is grid dimensions
+        static float computeBlockDims(const int x);
+
     private:
+
+
         //Preps the block and neighbors to be cleared.
         void select();
 
@@ -71,7 +79,8 @@ class Block : public Clickable, public Movable, public Visible
         //Returns true if even one like-colored block is adjacent.
         bool anyBlocksAdjacent() const;
 
-
+        //Gets the surface area of this blok
+        RectInt getArea();
 
         //If true, this block can fall.
         bool moving;
@@ -80,7 +89,10 @@ class Block : public Clickable, public Movable, public Visible
         bool selected;
 
         //Position on the GRID, not on the screen
-        VectorInt gridposition;
+        PointInt gridposition;
+
+        //Saved so we don't have to compute it too much.
+        RectInt area;
 
         //Static so the image only needs to be loaded once.
         static ImageFile image;
@@ -89,7 +101,7 @@ class Block : public Clickable, public Movable, public Visible
         static Direction down;
 
         //Smart pointer to its container so that it can know its properties.
-        static std::shared_ptr<Grid<Block>> container;
+        static Grid<Block>* container;
 
         //Map of available colors, for randomly assigning a color.
         static std::map<AvailableColor, Color> colors;

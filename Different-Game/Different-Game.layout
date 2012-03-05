@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="include/Block.h" open="1" top="0" tabpos="2">
-		<Cursor position="2827" topLine="75" />
+	<File name="include/Block.h" open="1" top="0" tabpos="3">
+		<Cursor position="1038" topLine="29" />
+	</File>
+	<File name="include/Clickable.h" open="1" top="0" tabpos="6">
+		<Cursor position="294" topLine="0" />
 	</File>
 	<File name="include/Declarations.h" open="1" top="0" tabpos="5">
-		<Cursor position="346" topLine="0" />
+		<Cursor position="960" topLine="12" />
 	</File>
-	<File name="include/GameWindow.h" open="1" top="0" tabpos="6">
-		<Cursor position="861" topLine="0" />
+	<File name="include/GameWindow.h" open="0" top="0" tabpos="6">
+		<Cursor position="861" topLine="21" />
 	</File>
-	<File name="include/Grid.h" open="1" top="0" tabpos="3">
-		<Cursor position="4133" topLine="43" />
+	<File name="include/Grid.h" open="1" top="0" tabpos="2">
+		<Cursor position="858" topLine="88" />
 	</File>
 	<File name="include/Visible.h" open="0" top="0" tabpos="5">
 		<Cursor position="519" topLine="16" />
 	</File>
 	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="441" topLine="6" />
+		<Cursor position="1172" topLine="29" />
 	</File>
 	<File name="src/Block.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="983" topLine="18" />
+		<Cursor position="1485" topLine="39" />
 	</File>
 </CodeBlocks_layout_file>

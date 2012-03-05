@@ -10,17 +10,18 @@
 #include "../include/Block.h"
 #include <iostream>
 #include <ctime>
+#include <cmath>
 
 
 ImageFile Block::image;
 Direction Block::down;
-std::shared_ptr<Grid<Block>> Block::container;
+Grid<Block>* Block::container;
 std::map<AvailableColor, Color> Block::colors;
 uint64_t Block::generated_numbers;
 
 
 
-Block::Block(const Color newcolor, const VectorInt newgridposition)
+Block::Block(const Color newcolor, const PointInt newgridposition)
 {
     gridposition = newgridposition;
     getSprite().SetImage(image);
@@ -32,6 +33,7 @@ Block::Block(const Color newcolor, const VectorInt newgridposition)
 
     getSprite().SetScale(1.0/(getImageDims().x/container->getCellSize().x),
                          1.0/(getImageDims().y/container->getCellSize().y));
+    area = getArea();
 }
 
 Block::~Block()
@@ -44,9 +46,21 @@ VectorFloat Block::getImageDims()
     return VectorFloat(image.GetWidth(), image.GetHeight());
 }
 
+RectInt Block::getArea()
+{
+    return RectInt(int(getSprite().GetPosition().x),
+                   int(getSprite().GetPosition().y),
+                   int(getSprite().GetPosition().x + getSprite().GetSize().x),
+                   int(getSprite().GetPosition().y + getSprite().GetSize().y)
+                   );
+}
+
 void Block::handleInput(const InputHandler& input)
 {
 
+        if (area.Contains(input.GetMouseX(), input.GetMouseY()))
+        std::cout << "Clicked Block at (" << gridposition.x
+                  << ", " << gridposition.y << ")\n";
 }
 
 void Block::move()
@@ -61,7 +75,7 @@ void Block::loadImage(std::string filename)
 
 void Block::initContainer(Grid<Block>* newcontainer)
 {
-    container = std::shared_ptr<Grid<Block>>(newcontainer);
+    container = newcontainer;
 }
 
 void Block::initMap()
@@ -91,4 +105,11 @@ Color Block::getRandomColor(const int max_colors)
     RandomNumber rand;
     rand.SetSeed(time(NULL)*++generated_numbers);
     return colors[AvailableColor(rand.Random(0, max_colors - 1))];
+}
+
+float Block::computeBlockDims(const int x)
+{
+    //I figured this out with my graphing calculator and Wolfram Alpha.
+    if (x % 8 != 0 || x > 32) exit(1);
+    return (-pow(x, 3)/256)+(.3125*pow(x, 2))-(8.75*x)+100;
 }

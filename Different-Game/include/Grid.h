@@ -33,7 +33,7 @@ class Grid
 
         /*** Begin object operations ******************************************/
 
-        T get(const PointInt& thelocation) const;
+        T& get(const PointInt& thelocation);
         void set(const T t, const PointInt& newlocation);
 
         /*** End object operations ********************************************/
@@ -126,10 +126,11 @@ Grid<T>::Grid(const VectorInt& newdimensions,
 template<class T>
 Grid<T>::~Grid()
 {
+    objects.resize(boost::extents[0][0]);
 }
 
 template<class T>
-T Grid<T>::get(const VectorInt& thelocation) const
+T& Grid<T>::get(const VectorInt& thelocation)
 {
     return objects[thelocation.x][thelocation.y];
 }
