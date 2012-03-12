@@ -11,6 +11,7 @@
 #include <iostream>
 #include <ctime>
 #include <cmath>
+#include <stdexcept>
 
 
 ImageFile Block::image;
@@ -21,7 +22,7 @@ uint64_t Block::generated_numbers;
 
 
 
-Block::Block(const Color newcolor, const PointInt newgridposition)
+Block::Block(const Color& newcolor, const PointInt& newgridposition)
 {
     gridposition = newgridposition;
     getSprite().SetImage(image);
@@ -70,7 +71,8 @@ void Block::move()
 
 void Block::loadImage(std::string filename)
 {
-    image.LoadFromFile(filename);
+    if (!image.LoadFromFile(filename))
+        throw std::runtime_error("Block image could not be loaded!");
 }
 
 void Block::initContainer(Grid<Block>* newcontainer)
@@ -90,26 +92,21 @@ void Block::initMap()
     colors.insert(ColorPair(AvailableColor::WHITE, Color::White));
 }
 
-Color Block::getRandomColor(const int max_colors)
+Color& Block::getRandomColor(const int max_colors)
 {
-    //We don't want to load a color that doesn't exist!
-    try {
-        if (max_colors > 7 || max_colors < 4) throw;
-    }
-    catch (...) {
-        std::cerr << "Invalid block value given!  " << max_colors << std::endl;
-        exit(1);
-    }
-
+    if (max_colors > 7 || max_colors < 4)
+        throw std::out_of_range("Invalid block value of " + max_colors);
 
     RandomNumber rand;
-    rand.SetSeed(time(NULL)*++generated_numbers);
+    rand.SetSeed(time(NULL)* ++generated_numbers);
     return colors[AvailableColor(rand.Random(0, max_colors - 1))];
 }
 
 float Block::computeBlockDims(const int x)
 {
-    //I figured this out with my graphing calculator and Wolfram Alpha.
-    if (x % 8 != 0 || x > 32) exit(1);
+    //I got this formula with my graphing calculator and Wolfram Alpha.
+    if (x % 8 != 0 || x > 32)
+        throw std::invalid_argument("Grid size is not between divisible by 8!");
+
     return (-pow(x, 3)/256)+(.3125*pow(x, 2))-(8.75*x)+100;
 }

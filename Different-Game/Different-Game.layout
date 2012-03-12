@@ -1,28 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="include/Block.h" open="1" top="0" tabpos="3">
-		<Cursor position="1038" topLine="29" />
+	<File name="include/Block.h" open="0" top="0" tabpos="1">
+		<Cursor position="2369" topLine="12" />
 	</File>
-	<File name="include/Clickable.h" open="1" top="0" tabpos="6">
-		<Cursor position="294" topLine="0" />
+	<File name="include/Clickable.h" open="0" top="0" tabpos="6">
+		<Cursor position="433" topLine="0" />
 	</File>
-	<File name="include/Declarations.h" open="1" top="0" tabpos="5">
-		<Cursor position="960" topLine="12" />
+	<File name="include/Declarations.h" open="0" top="0" tabpos="5">
+		<Cursor position="535" topLine="15" />
+	</File>
+	<File name="include/GameState.h" open="0" top="0" tabpos="8">
+		<Cursor position="233" topLine="0" />
+	</File>
+	<File name="include/GameStateManager.h" open="0" top="0" tabpos="7">
+		<Cursor position="0" topLine="0" />
 	</File>
 	<File name="include/GameWindow.h" open="0" top="0" tabpos="6">
-		<Cursor position="861" topLine="21" />
+		<Cursor position="1185" topLine="21" />
 	</File>
-	<File name="include/Grid.h" open="1" top="0" tabpos="2">
-		<Cursor position="858" topLine="88" />
+	<File name="include/Grid.h" open="0" top="0" tabpos="2">
+		<Cursor position="3043" topLine="84" />
+	</File>
+	<File name="include/InGameState.h" open="1" top="0" tabpos="2">
+		<Cursor position="271" topLine="0" />
+	</File>
+	<File name="include/Movable.h" open="0" top="0" tabpos="0">
+		<Cursor position="622" topLine="11" />
+	</File>
+	<File name="include/ScoreKeeper.h" open="0" top="0" tabpos="0">
+		<Cursor position="132" topLine="0" />
 	</File>
 	<File name="include/Visible.h" open="0" top="0" tabpos="5">
-		<Cursor position="519" topLine="16" />
+		<Cursor position="136" topLine="26" />
 	</File>
 	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="1172" topLine="29" />
+		<Cursor position="304" topLine="1" />
 	</File>
-	<File name="src/Block.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="1485" topLine="39" />
+	<File name="src/Block.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="3045" topLine="86" />
+	</File>
+	<File name="src/GameState.cpp" open="0" top="0" tabpos="9">
+		<Cursor position="21" topLine="0" />
+	</File>
+	<File name="src/InGameState.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="0" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

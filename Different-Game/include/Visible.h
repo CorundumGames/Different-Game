@@ -9,17 +9,19 @@
 class Visible
 {
     public:
+        virtual ~Visible() {};
+
         //Used for drawing.
         Sprite& getSprite()
             { return sprite; }
 
 
         //Sets the position of the sprite.
-        void setPosition(const VectorFloat newpos)
+        void setPosition(const PointFloat newpos)
             { sprite.SetPosition(newpos); }
 
         //Gets the position of the sprite.
-        VectorFloat getPosition() const
+        PointFloat getPosition() const
             { return sprite.GetPosition(); }
 
     protected:

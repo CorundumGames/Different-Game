@@ -17,7 +17,7 @@ int main()
     Game.Clear(Color(50, 50, 100));
     Grid<Block> france(VectorInt(GRID_DIMS, GRID_DIMS),
                        Block::getImageDims(),
-                       VectorFloat(224, 48));
+                       PointFloat(224, 48));
 
     france.setCellSize(VectorFloat(BLOCK_DIMS, BLOCK_DIMS));
 
@@ -41,14 +41,14 @@ int main()
         while (Game.GetEvent(event)) {
             if (event.Type == sf::Event::Closed) Game.Close();
         }
-        //Game.Clear(Color(50, 50, 100));
+        Game.Clear(Color(50, 50, 100));
 
         for (int i = 0; i < france.getDimensions().x; ++i) {
             for (int j = 0; j < france.getDimensions().y; ++j) {
 
                 if (Game.GetInput().IsMouseButtonDown(sf::Mouse::Button::Left))
                 france.get(PointInt(i, j)).handleInput(Game.GetInput());
-               // Game.Draw(france.get(PointInt(i, j)).getSprite());
+                Game.Draw(france.get(PointInt(i, j)).getSprite());
             }
         }
 

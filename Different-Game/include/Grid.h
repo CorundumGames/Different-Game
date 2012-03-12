@@ -52,7 +52,7 @@ class Grid
         /*** Begin grid operations ********************************************/
 
         //Sees if a given coordinate is inside the grid's area.
-        bool isInGrid(const PointFloat theposition) const;
+        bool isInGrid(const PointFloat& theposition) const;
 
         //Also recalculates cellsize
         void setGridSize(const VectorFloat newgridsize);
@@ -87,7 +87,7 @@ class Grid
         /*** Begin validity checkers ******************************************/
 
         //Sees if a position is in a particular cell.
-        bool isInCell(const PointFloat theposition, const PointInt thecell) const;
+        bool isInCell(const PointFloat& theposition, const PointInt& thecell) const;
 
         /*** End validity checkers ********************************************/
 
@@ -119,8 +119,8 @@ Grid<T>::Grid(const VectorInt& newdimensions,
               const PointFloat newlocation)
 {
     setDimensions(newdimensions);
-    cellsize = newcellsize;
-    location = newlocation;
+    setCellSize(newcellsize);
+    setLocation(newlocation);
 }
 
 template<class T>
@@ -130,13 +130,13 @@ Grid<T>::~Grid()
 }
 
 template<class T>
-T& Grid<T>::get(const VectorInt& thelocation)
+T& Grid<T>::get(const PointInt& thelocation)
 {
     return objects[thelocation.x][thelocation.y];
 }
 
 template<class T>
-void Grid<T>::set(const T t, const VectorInt& newlocation)
+void Grid<T>::set(const T t, const PointInt& newlocation)
 {
     objects[newlocation.x][newlocation.y] = t;
 }
@@ -156,7 +156,7 @@ void Grid<T>::setCellSize(const VectorFloat newcellsize)
 template<class T>
 VectorInt Grid<T>::getDimensions() const
 {
-    return VectorInt(objects.shape()[0], objects.shape()[1]);
+    return std::move(VectorInt(objects.shape()[0], objects.shape()[1]));
 }
 
 template<class T>
@@ -166,7 +166,13 @@ void Grid<T>::setDimensions(const VectorInt& newdimensions)
 }
 
 template<class T>
-VectorFloat Grid<T>::getLocation() const
+void Grid<T>::setLocation(const PointFloat newlocation)
+{
+    location = newlocation;
+}
+
+template<class T>
+PointFloat Grid<T>::getLocation() const
 {
     return location;
 }
@@ -177,7 +183,7 @@ void Grid<T>::resetGrid(const VectorInt& newdimensions)
      objects.resize(boost::extents[newdimensions.x][newdimensions.y]);
      for (int i = 0; i < newdimensions.x; ++i)
           for (int j = 0; j < newdimensions.y; ++j)
-               objects[i][j] = T();
+               objects[i][j] = std::move(T());
 }
 
 #endif /* GRID_H_ */

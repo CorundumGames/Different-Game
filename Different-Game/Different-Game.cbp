@@ -11,12 +11,18 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option projectCompilerOptionsRelation="2" />
 				<Compiler>
-					<Add option="-pg" />
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-Os" />
+					<Add option="-O3" />
+					<Add option="-Weffc++" />
+					<Add option="-std=c++0x" />
+					<Add option="-Wall" />
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add option="-pg" />
+					<Add option="-s" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -24,6 +30,7 @@
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
+				<Option projectCompilerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-O2" />
 				</Compiler>
@@ -46,15 +53,19 @@
 		<Unit filename="include/Block.h" />
 		<Unit filename="include/Clickable.h" />
 		<Unit filename="include/Declarations.h" />
+		<Unit filename="include/GameState.h" />
 		<Unit filename="include/GameStateManager.h" />
 		<Unit filename="include/GameWindow.h" />
 		<Unit filename="include/Grid.h" />
+		<Unit filename="include/InGameState.h" />
 		<Unit filename="include/Movable.h" />
 		<Unit filename="include/ScoreKeeper.h" />
 		<Unit filename="include/Visible.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Block.cpp" />
+		<Unit filename="src/GameState.cpp" />
 		<Unit filename="src/GameStateManager.cpp" />
+		<Unit filename="src/InGameState.cpp" />
 		<Unit filename="src/Movable.cpp" />
 		<Unit filename="src/ScoreKeeper.cpp" />
 		<Extensions>

@@ -16,7 +16,7 @@ class Block : public Clickable, public Movable, public Visible
         Block() {};
 
         //This is what should be used.
-        Block(const Color newcolor, const PointInt newgridposition);
+        Block(const Color& newcolor, const PointInt& newgridposition);
 
         //Removes self from the grid.
         virtual ~Block();
@@ -53,7 +53,7 @@ class Block : public Clickable, public Movable, public Visible
         static VectorFloat getImageDims();
 
         //Gets one of several colors
-        static Color getRandomColor(const int max_colors);
+        static Color& getRandomColor(const int max_colors);
 
         //Figures out the size of each block.  x is grid dimensions
         static float computeBlockDims(const int x);

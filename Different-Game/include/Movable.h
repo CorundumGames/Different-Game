@@ -11,13 +11,15 @@ class Movable
 {
     public:
         Movable()
-            { velocity = VectorFloat(0, 0); }
+            { velocity = std::move(VectorFloat(0, 0)); }
 
         virtual void move() = 0;
 
         //Get/setters
-        VectorFloat getVelocity() const            { return velocity;   }
-        void setVelocity(const VectorFloat newvel) { velocity = newvel; }
+        VectorFloat getVelocity() const
+            { return velocity; }
+        void setVelocity(const VectorFloat newvel)
+            { velocity = newvel; }
 
     protected:
         //Acceleration due to gravity will be constant, as it is in real life.

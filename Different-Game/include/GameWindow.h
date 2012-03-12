@@ -6,20 +6,24 @@
 #include <SFML/Graphics.hpp>
 #include "Declarations.h"
 
+constexpr int FULL = sf::Style::Fullscreen;
+constexpr int WINDOW = sf::Style::Titlebar|sf::Style::Close;
+const char* TITLE = "Different Game";
+
 class GameWindow : public Screen
 {
     public:
         //Ugly hack, I need to overload this later.
-        GameWindow() : Screen(VideoMode(640, 480, 32),
-                              "Different Game",
-                              sf::Style::Titlebar|sf::Style::Close)
+        GameWindow() : Screen(VideoMode(640, 480, 32), TITLE, WINDOW)
             { fullscreen = false; score = 0;}
 
         //Get/setters, with special guest Increaser.
-        void setScore(uint64_t newscore)
+        void setScore(const uint64_t newscore)
             { score = newscore; }
-        void increaseScore(uint64_t scoretoadd)
+
+        void increaseScore(const uint64_t scoretoadd)
             { score += scoretoadd; }
+
         uint64_t getScore() const
             { return score; }
 
@@ -35,10 +39,7 @@ class GameWindow : public Screen
         void toggleFullScreen()
         {
             fullscreen = !fullscreen;
-            Create(VideoMode(640, 480, 32),
-                   "Different Game",
-                   fullscreen ? sf::Style::Fullscreen :
-                   sf::Style::Titlebar|sf::Style::Close);
+            Create(VideoMode(640, 480, 32), TITLE, fullscreen ? FULL : WINDOW);
         }
 
     private:

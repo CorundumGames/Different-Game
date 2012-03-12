@@ -13,10 +13,27 @@
 #include <utility>
 
 //Class forward declarations
-enum class Direction : char {SOUTH = 0, EAST, NORTH, WEST};
-enum class AvailableColor : char {
+
+enum class Direction : char
+{
+    SOUTH = 0, EAST, NORTH, WEST
+};
+
+enum class AvailableColor : char
+{
     RED = 0, BLUE, GREEN, YELLOW, CYAN, PURPLE, WHITE
 };
+
+enum class Quadrant : char
+{
+    NORTHEAST = 0, NORTHWEST, SOUTHEAST, SOUTHWEST
+};
+
+enum class State : char
+{
+    MENU = 0; IN_GAME
+};
+
 class Visible;
 class Movable;
 class Clickable;
@@ -40,7 +57,7 @@ typedef sf::RenderWindow Screen;
 typedef sf::Vector2<int> VectorInt;
 typedef sf::Vector2<int> PointInt;   //Same as VectorInt, just for clarity!
 typedef sf::Vector2<float> VectorFloat;
-typedef sf::Vector2<float> PointFloat;   //Again for VectorFloat
+typedef sf::Vector2<float> PointFloat;
 typedef sf::VideoMode VideoMode;
 typedef std::pair<AvailableColor, Color> ColorPair;
 
